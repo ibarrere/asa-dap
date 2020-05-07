@@ -5,11 +5,6 @@ Disclaimer
 ------------
 *WARNING* Cisco recommends only interacting with DAP via ASDM and that you not update the xml file directly. That's no fun though, and I haven't run into any major issues doing it this way. Be aware, however, that it's a lot easier to break your setup this way, and I highly recommend that you test your rules on a non production firewall before pushing them.
 
-Installation
-------------
-
-`$ ansible-galaxy install asa-dap` 
-
 Role Variables
 --------------
 
@@ -81,8 +76,3 @@ License
 -------
 
 BSD
-
-Author Information
-------------------
-
-Ian Barrere
