@@ -67,6 +67,22 @@ dap_acls:
 
 If your lua is complex you could create the `asa_dap_lua` dict with a template elsewhere. Each `dap_records` list item can be supplemented with additional dicts to define various lua conditions to keep your logic in the same place.  
 
+Example playbook
+----------------
+
+```
+- hosts: all 
+  connection: network_cli
+
+  roles:
+    - asa-dap-lua
+    - asa-dap
+```
+
+Where asa-dap-lua is another role that generates the `asa_dap_lua` dict. 
+
+There is a tag `clear_dap` which is not run by default, but which will run the command `clear conf dynamic-access-policy-record`. This can be used to have the role start from a clear slate if desired.
+
 Dependencies
 ------------
 
