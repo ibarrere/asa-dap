@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: Ian Barrere 
+  description: A role to automate Cisco ASA DAP rule creation and deployment 
+  company: N/A
+  issue_tracker_url: https://github.com/ibarrere/asa-dap/issues
+  license: BSD
+  min_ansible_version: 1.2
+  platforms:
+  - name: Ubuntu
+    versions:
+      - all
+  - name: Debian
+    versions:
+      - all
+  - name: EL
+    versions:
+    - all
+  categories:
+    - networking
+dependencies: []

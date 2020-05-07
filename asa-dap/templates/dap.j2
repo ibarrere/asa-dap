@@ -1,0 +1,23 @@
+{% if dap_acls is defined %}
+	{% for acl in dap_acls %}
+{{ acl }}
+	{% endfor%}
+{% endif %}
+{% for record in dap_records %}
+dynamic-access-policy-record {{ record.name }} 
+	{% if record.acls is defined %}
+		{% for acl in record.acls %}
+ network-acl {{ acl }}
+		{% endfor %}
+	{% endif %}
+ priority {{ record.priority }}
+	{% if record.action is defined %}
+ action {{ record.action }}
+	{% endif %}
+	{% if record.message is defined %}
+ user-message {{ record.message }}
+	{% endif %}
+{% endfor %}
+dynamic-access-policy-record DfltAccessPolicy
+ user-message "{{ dap_default_message }}"
+ action {{ dap_default_action }} 

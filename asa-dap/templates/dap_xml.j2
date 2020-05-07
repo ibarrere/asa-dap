@@ -1,0 +1,40 @@
+#jinja2: lstrip_blocks: True
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dapRecordList>
+{% for record in dap_records %}
+<dapRecord>
+<dapName>
+<value>{{ record.name }}</value>
+</dapName>
+<dapViewsRelation>
+<value>{{ record.logic_op }}</value>
+</dapViewsRelation>
+	{% if record.basic is defined %}
+<dapBasicView>
+<dapSelection>
+<dapPolicy>
+<value>{{ record.basic.match_policy | default("match-any") }}</value>
+</dapPolicy>
+<attr>
+<name>{{ record.basic.attr_id }}</name>
+<value>{{ record.basic.attr_value }}</value>
+<operation>{{ record.basic.operation | default("EQ") }}</operation>
+<type>{{ record.basic.type | default("caseless") }}</type>
+</attr>
+
+</dapSelection>
+</dapBasicView>
+	{% endif %}
+	{% if asa_dap_lua is defined %}
+		{% for lua_record_name, lua_block in asa_dap_lua.items() %}
+			{% if lua_record_name == record.name %}
+<advancedView>
+<value>{{ lua_block }}
+</value>
+</advancedView>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+</dapRecord>
+{% endfor %}
+</dapRecordList>

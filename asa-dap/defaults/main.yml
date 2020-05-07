@@ -1,0 +1,25 @@
+---
+xml_src_dir: "/tmp/"
+xml_src_file: "dap.xml"
+xml_src: "{{ xml_src_dir }}{{ xml_src_file }}"
+xml_dest_fs: "disk0:/"
+xml_dest_file: "dap.xml"
+xml_dest: "{{ xml_dest_fs }}{{ xml_dest_file }}"
+python_interpreter: "/usr/bin/python"
+dap_default_message: "Please contact your system administrator for assistance."
+dap_default_action: "terminate"
+
+dap_records:
+  - name: "EXAMPLE1"
+    priority: "100"
+    logic_op: "and"
+    basic:
+      match_policy: match-all
+      attr_id: aaa.ldap.memberOf
+      attr_value: TEST
+      operation: EQ
+      type: caseless
+    acls:
+      - "DAP_PERMIT_EXAMPLE1"
+dap_acls:
+  - "access-list DAP_PERMIT_EXAMPLE1 extended permit ip object-group EXAMPLE1 object-group EXAMPLE2"
