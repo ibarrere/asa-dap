@@ -23,6 +23,16 @@
     src: "dap.j2"
   tags: [ 'always' ]
 
+- name: configure default access policy record on asa
+  asa_config:
+    parents:
+      - "dynamic-access-policy-record DfltAccessPolicy" 
+    lines:
+      - 'user-message "{{ dap_default_message }}"'
+      - 'action {{ dap_default_action }}'
+    replace: block
+  tags: [ 'always' ]
+
 - name: activate new dap config 
   asa_command:
     commands: "dynamic-access-policy-config activate"
