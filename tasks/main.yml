@@ -1,27 +1,28 @@
 ---
+- set_fact:
+    preserve_dap: true
+  tags: [ 'preserve_dap' ]
+
 - name: template xml 
   template:
     src: "dap_xml.j2"
     dest: "{{ xml_src }}"
   vars:
     ansible_python_interpreter: "{{ python_interpreter }}" # this is required to avoid selinux python binding errors
-  tags: [ 'always' ]
 
 - name: copy xml to firewall
   net_put:
     src: "{{ xml_src }}"
     dest: "{{ xml_dest }}"
-  tags: [ 'always' ]
 
 - name: clear configured records on asa
   asa_config:
     lines: "clear conf dynamic-access-policy-record"
-  tags: [ 'never', 'clear_dap' ]
+  when: preserve_dap is not defined
 
 - name: configure dap records on asa
   asa_config:
     src: "dap.j2"
-  tags: [ 'always' ]
 
 - name: configure default access policy record on asa
   asa_config:
@@ -31,9 +32,7 @@
       - 'user-message "{{ dap_default_message }}"'
       - 'action {{ dap_default_action }}'
     replace: block
-  tags: [ 'always' ]
 
 - name: activate new dap config 
   asa_command:
     commands: "dynamic-access-policy-config activate"
-  tags: [ 'always' ]
