@@ -1,7 +1,7 @@
 ---
 - set_fact:
     preserve_dap: true
-  tags: [ 'preserve_dap' ]
+  tags: [ 'never', 'preserve_dap' ]
 
 - name: template xml 
   template:
