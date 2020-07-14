@@ -15,9 +15,6 @@ dynamic-access-policy-record {{ record.name }}
  action {{ record.action }}
 	{% endif %}
 	{% if record.message is defined %}
- user-message {{ record.message }}
+ user-message "{{ record.message }}"
 	{% endif %}
 {% endfor %}
-dynamic-access-policy-record DfltAccessPolicy
- user-message "{{ dap_default_message }}"
- action {{ dap_default_action }} 

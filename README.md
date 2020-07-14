@@ -81,7 +81,7 @@ Example playbook
 
 Where asa-dap-lua is another role that generates the `asa_dap_lua` dict. 
 
-There is a tag `clear_dap` which is not run by default, but which will run the command `clear conf dynamic-access-policy-record`. This can be used to have the role start from a clear slate if desired.
+You can specify the tag `preserve_dap` if you do not want to overwrite the existing "dynamic-access-policy-record" lines on the ASA. Otherwise, the role will run the command `clear conf dynamic-access-policy-record` by default.
 
 Dependencies
 ------------
